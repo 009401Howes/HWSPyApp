@@ -1,207 +1,170 @@
-From: <Saved by Blink>
-Snapshot-Content-Location: https://publicassets.w3spaces.com/py.html
-Subject: 
-Date: Tue, 4 Jun 2024 12:55:29 +0100
-MIME-Version: 1.0
-Content-Type: multipart/related;
-	type="text/html";
-	boundary="----MultipartBoundary--UCom1oT6dc4iPOvKj4Yjq9OQh2Gq4MKVRKp5fBlfOh----"
-
-
-------MultipartBoundary--UCom1oT6dc4iPOvKj4Yjq9OQh2Gq4MKVRKp5fBlfOh----
-Content-Type: text/html
-Content-ID: <frame-8BE131F0E81A86BBC5A636AC42FDE4FA@mhtml.blink>
-Content-Transfer-Encoding: quoted-printable
-Content-Location: https://publicassets.w3spaces.com/py.html
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
-=3Dwindows-1252"></head><body>import os
+import os
 os.system("pip install wget")
 from fileinput import filename
 from typing import Text
 import time
-DebugMode =3D True
+DebugMode = True
 import wget
 import shutil
-FileWorkingDirectory =3D os.getcwd()
-WindowRenderExist =3D os.path.isfile("PySimpleGUI.py")
-UserFolderExist =3D os.path.isdir("Users")
-if UserFolderExist =3D=3D False:
+FileWorkingDirectory = os.getcwd()
+WindowRenderExist = os.path.isfile("PySimpleGUI.py")
+UserFolderExist = os.path.isdir("Users")
+if UserFolderExist == False:
     os.mkdir("Users")
-if WindowRenderExist =3D=3D False:
-    URL =3D "https://publicassets.w3spaces.com/PySimpleGUI.html"
-    response =3D wget.download(URL, "PySimpleGUI.py")
+if WindowRenderExist == False:
+    URL = "https://publicassets.w3spaces.com/PySimpleGUI.html"
+    response = wget.download(URL, "PySimpleGUI.py")
 import PySimpleGUI as sg
-DebugMode =3D os.path.isfile("Debug.txt")
-Is_Set_Up =3D os.path.exists("Temp.txt")
-UsersWorkingDirectory =3D os.getcwd() + "//Users//"
-while Is_Set_Up =3D=3D False:
-    AdminPassword =3D sg.popup_get_text("First time setting up. Enter admin=
- password")
-    if AdminPassword =3D=3D "":
+DebugMode = os.path.isfile("Debug.txt")
+Is_Set_Up = os.path.exists("Temp.txt")
+UsersWorkingDirectory = os.getcwd() + "//Users//"
+while Is_Set_Up == False:
+    AdminPassword = sg.popup_get_text("First time setting up. Enter admin password")
+    if AdminPassword == "":
         sg.popup_annoying("Please enter a password for admin.")
     else:
-        TempFileOpen =3D open("Temp.txt", "w")
+        TempFileOpen = open("Temp.txt", "w")
         TempFileOpen.write(AdminPassword)
         TempFileOpen.close()
-        Is_Set_Up =3D True
-        break     =20
+        Is_Set_Up = True
+        break      
 def LoginSystem():
     #setting up layout
     global Username, UserPath
-    Username =3D ""
-    layout =3D [
-        [sg.Text("Username"), sg.Input(key=3D"UsernameInput", expand_x=3DTr=
-ue)],
-        [sg.Text("Password"), sg.Input(key=3D"PasswordInput", password_char=
-=3D"=C2=B7", expand_x=3DTrue)],
+    Username = ""
+    layout = [
+        [sg.Text("Username"), sg.Input(key="UsernameInput", expand_x=True)],
+        [sg.Text("Password"), sg.Input(key="PasswordInput", password_char="·", expand_x=True)],
         [sg.Button("login"), sg.Button("register"), sg.Button("Exit")]]
     #Building Window
-    LoginWindow =3D sg.Window('login', layout, size=3D(300,100))
+    LoginWindow = sg.Window('login', layout, size=(300,100))
     def AdminMode():
         LoginWindow.disappear()
         LoginWindow.disable()
-        Admin_Window_Layout =3D [
-            [sg.Button("View Users"), sg.Button("Edit User's password"), sg=
-.Button("Edit Admin Password"), sg.Button("Delete User"), sg.Button("Debug =
-Mode"), sg.Button("Exit")]
+        Admin_Window_Layout = [
+            [sg.Button("View Users"), sg.Button("Edit User's password"), sg.Button("Edit Admin Password"), sg.Button("Delete User"), sg.Button("Debug Mode"), sg.Button("Exit")]
         ]
-        Admin_Window =3D sg.Window("Administrator Mode", Admin_Window_Layou=
-t, size=3D(600,200))
-        Admin_Window_Open =3D True
-        while Admin_Window_Open =3D=3D True:
-            Admin_events, Admin_Values =3D Admin_Window.read()
-            if Admin_events=3D=3D"Exit" or Admin_events =3D=3D sg.WIN_CLOSE=
-D:
+        Admin_Window = sg.Window("Administrator Mode", Admin_Window_Layout, size=(600,200))
+        Admin_Window_Open = True
+        while Admin_Window_Open == True:
+            Admin_events, Admin_Values = Admin_Window.read()
+            if Admin_events=="Exit" or Admin_events == sg.WIN_CLOSED:
                 LoginWindow.enable()
                 LoginWindow.reappear()
                 Admin_Window.close()
-                Admin_Window_Open =3D False
-            elif Admin_events=3D=3D"View Users":
+                Admin_Window_Open = False
+            elif Admin_events=="View Users":
                 os.chdir(UsersWorkingDirectory)
-                l=3Dos.listdir()
-                li=3D[x.split('.')[0] for x in l]
+                l=os.listdir()
+                li=[x.split('.')[0] for x in l]
                 sg.popup_annoying(li)
                 os.chdir(FileWorkingDirectory)
-            elif Admin_events=3D=3D"Edit User's password":
+            elif Admin_events=="Edit User's password":
                 os.chdir(UsersWorkingDirectory)
-                User =3D sg.popup_get_text("What user(no '.txt')") + ".txt"
-                Does_User_Exist =3D os.path.isfile(User)
-                if Does_User_Exist =3D=3D True:
-                    UserFile =3D open(User, "w")
-                    User_Password =3D sg.popup_get_text("Enter user passwor=
-d", password_char=3D"*")
+                User = sg.popup_get_text("What user(no '.txt')") + ".txt"
+                Does_User_Exist = os.path.isfile(User)
+                if Does_User_Exist == True:
+                    UserFile = open(User, "w")
+                    User_Password = sg.popup_get_text("Enter user password", password_char="*")
                     UserFile.write(User_Password)
                     UserFile.close()
                     os.chdir(FileWorkingDirectory)
-            elif Admin_events=3D=3D"Edit Admin Password":
+            elif Admin_events=="Edit Admin Password":
                 os.chdir(FileWorkingDirectory)
-                AdminFile =3D open("Temp.txt", "w")
-                Password =3D sg.popup_get_text("Enter new admin password")
+                AdminFile = open("Temp.txt", "w")
+                Password = sg.popup_get_text("Enter new admin password")
                 AdminFile.write(Password)
                 AdminFile.close()
-            elif Admin_events=3D=3D"Delete User":
+            elif Admin_events=="Delete User":
                 os.chdir(UsersWorkingDirectory)
-                UserToDelete =3D sg.popup_get_text("What user do you want t=
-o delete?")
-                if UserToDelete =3D=3D "Exit":
+                UserToDelete = sg.popup_get_text("What user do you want to delete?")
+                if UserToDelete == "Exit":
                     break
-                UserToDeleteFile =3D UserToDelete + ".txt"
-                Does_User_Exist =3D os.path.isfile(UserToDeleteFile)
-                if Does_User_Exist =3D=3D True:
+                UserToDeleteFile = UserToDelete + ".txt"
+                Does_User_Exist = os.path.isfile(UserToDeleteFile)
+                if Does_User_Exist == True:
                     os.remove(UserToDeleteFile)
                     shutil.rmtree(UserToDelete)
                 os.chdir(FileWorkingDirectory)
-            elif Admin_events =3D=3D "Debug Mode":
-                DebugFile =3D open("Debug.txt", "x")
+            elif Admin_events == "Debug Mode":
+                DebugFile = open("Debug.txt", "x")
                 DebugMode.close()
     global LoggedIn
-    LoggedIn =3D False
-    while LoggedIn =3D=3D False:
-        event, LoginValues =3D LoginWindow.read()
-        if event =3D=3D sg.WIN_CLOSED or event=3D=3D"Exit":
+    LoggedIn = False
+    while LoggedIn == False:
+        event, LoginValues = LoginWindow.read()
+        if event == sg.WIN_CLOSED or event=="Exit":
             exit()
-        if event =3D=3D "login" and LoginValues["UsernameInput"] !=3D "":
-            if LoginValues["PasswordInput"] =3D=3D "":
+        if event == "login" and LoginValues["UsernameInput"] != "":
+            if LoginValues["PasswordInput"] == "":
                 sg.popup_ok("Please enter a password.")
                 break
             os.chdir(UsersWorkingDirectory)
-            Input_Username =3D LoginValues["UsernameInput"]
-            Input_Username_File =3D LoginValues["UsernameInput"] + ".txt"
-            Does_User_Exist =3D os.path.exists(Input_Username_File)
-            if Does_User_Exist =3D=3D True:
-                User_File =3D open(Input_Username_File, "r")
-                User_Password =3D User_File.read()
+            Input_Username = LoginValues["UsernameInput"]
+            Input_Username_File = LoginValues["UsernameInput"] + ".txt"
+            Does_User_Exist = os.path.exists(Input_Username_File)
+            if Does_User_Exist == True:
+                User_File = open(Input_Username_File, "r")
+                User_Password = User_File.read()
                 User_File.close()
-                if LoginValues["PasswordInput"] =3D=3D User_Password:
-                    Username =3D Input_Username
-                    UserPath =3D UsersWorkingDirectory + Input_Username + "=
-//"
+                if LoginValues["PasswordInput"] == User_Password:
+                    Username = Input_Username
+                    UserPath = UsersWorkingDirectory + Input_Username + "//"
                     os.chdir(UserPath)
-                    LoggedIn =3D True
+                    LoggedIn = True
                     LoginWindow.disappear()
                     LoginWindow.close()
                 else:
                     sg.popup_annoying("Password incorrect.")
                     os.chdir(FileWorkingDirectory)
-            elif LoginValues["UsernameInput"] =3D=3D "admin":
+            elif LoginValues["UsernameInput"] == "admin":
                 os.chdir(FileWorkingDirectory)
-                Admin_File =3D open("Temp.txt", "r")
-                AdminPassword =3D Admin_File.read()
-                if LoginValues["PasswordInput"] !=3D AdminPassword:
+                Admin_File = open("Temp.txt", "r")
+                AdminPassword = Admin_File.read()
+                if LoginValues["PasswordInput"] != AdminPassword:
                     sg.popup_annoying("Incorrect.")
                 else:
                     AdminMode()
             else:
                 sg.popup_annoying("User doesn't exist.")
-        elif event =3D=3D "register":
+        elif event == "register":
             LoginWindow.disable()
             LoginWindow.disappear()
-            loop =3D True
-            loginLayout =3D [[sg.Text("Enter Username"), sg.Input(key=3D"Us=
-er_Register_Username")], [sg.Text("Enter Password"), sg.Input(key=3D"User_R=
-egister_Password", password_char=3D"*")], [sg.Button("register"), sg.Button=
-("login"), sg.Button("Exit")]]
-            RegisterWindow =3D sg.Window("Register", loginLayout, size=3D(3=
-00,100))
-            while loop =3D=3D True:
-                events, value =3D RegisterWindow.read()
-                if events =3D=3D "Exit" or events =3D=3D sg.WIN_CLOSED:
+            loop = True
+            loginLayout = [[sg.Text("Enter Username"), sg.Input(key="User_Register_Username")], [sg.Text("Enter Password"), sg.Input(key="User_Register_Password", password_char="*")], [sg.Button("register"), sg.Button("login"), sg.Button("Exit")]]
+            RegisterWindow = sg.Window("Register", loginLayout, size=(300,100))
+            while loop == True:
+                events, value = RegisterWindow.read()
+                if events == "Exit" or events == sg.WIN_CLOSED:
                     exit()
-                elif events =3D=3D "login":
+                elif events == "login":
                     LoginWindow.reappear()
                     LoginWindow.enable()
                     RegisterWindow.close()
-                    event =3D "login"
-                    loop =3D False
+                    event = "login"
+                    loop = False
 
-                elif events =3D=3D"register":
-                    if value["User_Register_Username"] =3D=3D "" or value["=
-User_Register_Password"] =3D=3D "":
-                        sg.popup_annoying("Username or password cannot be e=
-mpty.")
+                elif events =="register":
+                    if value["User_Register_Username"] == "" or value["User_Register_Password"] == "":
+                        sg.popup_annoying("Username or password cannot be empty.")
                     else:
                         os.chdir(UsersWorkingDirectory)
-                        User_File =3D value["User_Register_Username"] + ".t=
-xt"
-                        Does_User_Exist =3D os.path.isfile(User_File)
-                        if Does_User_Exist =3D=3D True:
+                        User_File = value["User_Register_Username"] + ".txt"
+                        Does_User_Exist = os.path.isfile(User_File)
+                        if Does_User_Exist == True:
                             sg.popup_annoying("User already exists.\n")
-                        elif value["User_Register_Username"] =3D=3D "admin"=
-:
+                        elif value["User_Register_Username"] == "admin":
                             sg.popup_annoying("Unavailable.")
                         else:
                             os.mkdir(value["User_Register_Username"])
-                            UserFile =3D open(User_File, "w")
-                            User_Password =3D value["User_Register_Password=
-"]
+                            UserFile = open(User_File, "w")
+                            User_Password = value["User_Register_Password"]
                             UserFile.write(User_Password)
                             UserFile.close()
-                            UserDirectory =3D UsersWorkingDirectory + value=
-["User_Register_Username"]
+                            UserDirectory = UsersWorkingDirectory + value["User_Register_Username"]
                             os.chdir(UserDirectory)
-                            Username =3D value["User_Register_Username"]
-                            LoggedIn =3D True
+                            Username = value["User_Register_Username"]
+                            LoggedIn = True
                             RegisterWindow.disappear()
                             RegisterWindow.close()
                             LoginWindow.close()
@@ -209,107 +172,91 @@ xt"
         else:
             sg.popup_annoying("Please enter a username.")
 def TextEditor():
-        Break =3D False
-        textsave =3D ""
-        fileName =3D ""
-        StartWindow =3D True
-        TextEditor_Start_Window_Layout =3D [
-            [sg.Button("Edit File"), sg.Button("Create File"), sg.Button("D=
-elete File")]
+        Break = False
+        textsave = ""
+        fileName = ""
+        StartWindow = True
+        TextEditor_Start_Window_Layout = [
+            [sg.Button("Edit File"), sg.Button("Create File"), sg.Button("Delete File")]
         ]
-        TextEditor_Start_Window =3D sg.Window("Text Editor", TextEditor_Sta=
-rt_Window_Layout, size =3D(300,100))
-        while StartWindow =3D=3D True:
-            TextEditor_Start_Window_event, TextEditor_Start_Window_Value =
-=3D TextEditor_Start_Window.read()
-            if TextEditor_Start_Window_event =3D=3D sg.WIN_CLOSED or TextEd=
-itor_Start_Window_event =3D=3D "Exit":
+        TextEditor_Start_Window = sg.Window("Text Editor", TextEditor_Start_Window_Layout, size =(300,100))
+        while StartWindow == True:
+            TextEditor_Start_Window_event, TextEditor_Start_Window_Value = TextEditor_Start_Window.read()
+            if TextEditor_Start_Window_event == sg.WIN_CLOSED or TextEditor_Start_Window_event == "Exit":
                 TextEditor_Start_Window.close()
-                StartWindow =3D False
-                Break =3D True
-            elif TextEditor_Start_Window_event =3D=3D "Create File":
-                FileName =3D sg.popup_get_text("Enter the file name") + ".t=
-xt"
-                CreateFileCheck =3D os.path.isfile(FileName)
-                if CreateFileCheck =3D=3D True:
+                StartWindow = False
+                Break = True
+            elif TextEditor_Start_Window_event == "Create File":
+                FileName = sg.popup_get_text("Enter the file name") + ".txt"
+                CreateFileCheck = os.path.isfile(FileName)
+                if CreateFileCheck == True:
                     sg.popup_annoying("File already exists.")
                 else:
-                    FileCreate =3D open(FileName, "x")
-                    fileName =3D FileName
+                    FileCreate = open(FileName, "x")
+                    fileName = FileName
                     break
-            elif TextEditor_Start_Window_event =3D=3D "Edit File":
-                FileName =3D sg.popup_get_text("Enter the file name") + ".t=
-xt"
+            elif TextEditor_Start_Window_event == "Edit File":
+                FileName = sg.popup_get_text("Enter the file name") + ".txt"
                 input(os.getcwd())
-                EditFileCheck =3D os.path.isfile(FileName)
-                if EditFileCheck =3D=3D True:
-                    FileEdit =3D open(FileName, "a")
-                    textsave =3D FileEdit.read()
+                EditFileCheck = os.path.isfile(FileName)
+                if EditFileCheck == True:
+                    FileEdit = open(FileName, "a")
+                    textsave = FileEdit.read()
                     FileEdit.close()
                     break
                 else:
-                    sg.popup_annoying("File doesn't exist.")   =20
-            elif TextEditor_Start_Window_event =3D=3D "Delete File":
-                FileName =3D sg.popup_get_text("Enter the file name") + ".t=
-xt"
-                DeleteFileCheck =3D os.path.isfile(FileName)
-                if DeleteFileCheck =3D=3D True:
+                    sg.popup_annoying("File doesn't exist.")    
+            elif TextEditor_Start_Window_event == "Delete File":
+                FileName = sg.popup_get_text("Enter the file name") + ".txt"
+                DeleteFileCheck = os.path.isfile(FileName)
+                if DeleteFileCheck == True:
                     os.remove(FileName)
                 else:
                     sg.popup_annoying("File doesn't exist.")
-        if Break =3D=3D False:
-           TextEditor_Layout=3D [
-           [sg.Text("Input"), sg.Multiline(key=3D"TextEditorInput", default=
-_text =3D textsave, enable_events=3DTrue, expand_x=3DTrue, expand_y=3DTrue,=
- justification=3D'left')],
+        if Break == False:
+           TextEditor_Layout= [
+           [sg.Text("Input"), sg.Multiline(key="TextEditorInput", default_text = textsave, enable_events=True, expand_x=True, expand_y=True, justification='left')],
            [sg.Button("Save")]]
-           TextEditor_Window =3D sg.Window("Text Editor", TextEditor_Layout=
-, enable_close_attempted_event=3DTrue, size =3D(600,600))
+           TextEditor_Window = sg.Window("Text Editor", TextEditor_Layout, enable_close_attempted_event=True, size =(600,600))
            while True:
-               TextEditor_Event, TextEditor_Values =3D TextEditor_Window.re=
-ad()
-               if TextEditor_Event =3D=3D sg.WINDOW_CLOSE_ATTEMPTED_EVENT o=
-r TextEditor_Event =3D=3D "Exit":
-                   CloseCheck =3D sg.popup_ok_cancel("Are you sure you want=
- to quit?")
-                   if CloseCheck =3D=3D "OK":
+               TextEditor_Event, TextEditor_Values = TextEditor_Window.read()
+               if TextEditor_Event == sg.WINDOW_CLOSE_ATTEMPTED_EVENT or TextEditor_Event == "Exit":
+                   CloseCheck = sg.popup_ok_cancel("Are you sure you want to quit?")
+                   if CloseCheck == "OK":
                        TextEditor_Window.close()
                        break
-               elif TextEditor_Event =3D=3D "Save":
-                   File =3D open(fileName, "w")
+               elif TextEditor_Event == "Save":
+                   File = open(fileName, "w")
                    File.write(TextEditor_Values["TextEditorInput"])
                    File.close()
-if DebugMode =3D=3D False:
+if DebugMode == False:
     LoginSystem()
-LoggedIn =3D True
+LoggedIn = True
 #Main Window
-MainWindowlayout =3D [[sg.Button("Files"), sg.Button("Log Out"), sg.Button(=
-"Text Editor")], [sg.Button("Open"), sg.Button("Calculator"), sg.Button("Po=
-wer")], [sg.Button("Exit")]]
-MainWindow =3D sg.Window("App", MainWindowlayout, size=3D(1920,1080))
+MainWindowlayout = [[sg.Button("Files"), sg.Button("Log Out"), sg.Button("Text Editor")], [sg.Button("Open"), sg.Button("Calculator"), sg.Button("Power")], [sg.Button("Exit")]]
+MainWindow = sg.Window("App", MainWindowlayout, size=(1920,1080))
 print ("Create Main Window")
 while True:
-    event, Values =3D MainWindow.read()
-    if event =3D=3D sg.WIN_CLOSED or event =3D=3D"Exit":
+    event, Values = MainWindow.read()
+    if event == sg.WIN_CLOSED or event =="Exit":
         exit()
-    elif event =3D=3D "Log Out":
-        Username =3D ""
+    elif event == "Log Out":
+        Username = ""
         MainWindow.close()
-        LoggedIn =3D False
+        LoggedIn = False
         os.chdir(FileWorkingDirectory)
         LoginSystem()
-    elif event =3D=3D "Text Editor":
+    elif event == "Text Editor":
         TextEditor()
-    elif event =3D=3D "Open":
-        sg.popup_annoying(os.listdir("C://ProgramData//Microsoft//Windows//=
-Start Menu//Programs//"))
-    elif event =3D=3D "Calculator":
+    elif event == "Open":
+        sg.popup_annoying(os.listdir("C://ProgramData//Microsoft//Windows//Start Menu//Programs//"))
+    elif event == "Calculator":
         os.chdir(FileWorkingDirectory)
-        CalculatorFile =3D FileWorkingDirectory + "//Calculator.py"
-        CalculatorFileExist =3D os.path.isfile(CalculatorFile)
-        if CalculatorFileExist =3D=3D False:
-            URL =3D "https://publicassets.w3spaces.com/calcApp.html"
-            response =3D wget.download(URL, "Calculator.py")
+        CalculatorFile = FileWorkingDirectory + "//Calculator.py"
+        CalculatorFileExist = os.path.isfile(CalculatorFile)
+        if CalculatorFileExist == False:
+            URL = "https://publicassets.w3spaces.com/calcApp.html"
+            response = wget.download(URL, "Calculator.py")
             try:
                 import Calculator
                 os.chdir(UserPath)
@@ -319,12 +266,12 @@ Start Menu//Programs//"))
             os.chdir(FileWorkingDirectory)
             import Calculator
             os.chdir(UserPath)
-    elif event =3D=3D "Files":
+    elif event == "Files":
         os.chdir(FileWorkingDirectory)
-        ExplorerFileExist =3D os.path.isfile("Explorer.py")
-        if ExplorerFileExist =3D=3D False:
-            URL =3D"https://publicassets.w3spaces.com/Explorer.html"
-            response =3D wget.download(URL, "Explorer.py")
+        ExplorerFileExist = os.path.isfile("Explorer.py")
+        if ExplorerFileExist == False:
+            URL ="https://publicassets.w3spaces.com/Explorer.html"
+            response = wget.download(URL, "Explorer.py")
             try:
                 import Explorer
                 os.chdir(UserPath)
@@ -334,37 +281,32 @@ Start Menu//Programs//"))
                 os.chdir(FileWorkingDirectory)
                 import Explorer
                 os.chdir(UserPath)
-    elif event =3D=3D "Power":
-        PowerWindowOpen =3D True
-        PowerWindowLayout =3D [[sg.Button("Sleep"), sg.Button("Hibernate"),=
- sg.Button("Shutdown"), sg.Button("Restart"), sg.Button("BIOS")]]
-        PowerWindow  =3D sg.Window("Power Window", PowerWindowLayout, enabl=
-e_close_attempted_event =3D True, size =3D (400, 50))
-        while PowerWindowOpen =3D=3D True:
-            PowerWindow_Event, PowerWindow_Values =3D PowerWindow.read()
-            if PowerWindow_Event =3D=3D sg.WINDOW_CLOSE_ATTEMPTED_EVENT or =
-PowerWindow_Event =3D=3D "Exit":
-                   CloseCheck =3D sg.popup_ok_cancel("Are you sure you want=
- to quit?")
-                   if CloseCheck =3D=3D "OK":
+    elif event == "Power":
+        PowerWindowOpen = True
+        PowerWindowLayout = [[sg.Button("Sleep"), sg.Button("Hibernate"), sg.Button("Shutdown"), sg.Button("Restart"), sg.Button("BIOS")]]
+        PowerWindow  = sg.Window("Power Window", PowerWindowLayout, enable_close_attempted_event = True, size = (400, 50))
+        while PowerWindowOpen == True:
+            PowerWindow_Event, PowerWindow_Values = PowerWindow.read()
+            if PowerWindow_Event == sg.WINDOW_CLOSE_ATTEMPTED_EVENT or PowerWindow_Event == "Exit":
+                   CloseCheck = sg.popup_ok_cancel("Are you sure you want to quit?")
+                   if CloseCheck == "OK":
                        PowerWindow.close()
                        break
-            elif PowerWindow_Event =3D=3D "Sleep":
+            elif PowerWindow_Event == "Sleep":
                 os.system("psshutdown64.exe -d -t 0")
-            elif PowerWindow_Event =3D=3D "Hibernate":
+            elif PowerWindow_Event == "Hibernate":
                 os.system("shutdown /h")
-            elif PowerWindow_Event =3D=3D "Shutdown":
+            elif PowerWindow_Event == "Shutdown":
                 os.system("shutdown /s")
-            elif PowerWindow_Event =3D=3D "Restart":
+            elif PowerWindow_Event == "Restart":
                 os.system("shutdown /r")
-            elif PowerWindow_Event =3D=3D "BIOS":
-                AdminPass =3D ""
+            elif PowerWindow_Event == "BIOS":
+                AdminPass = ""
                 os.chdir(FileWorkingDirectory)
-                TempFileOpen =3D open("Temp.txt", "w")
-                AdminPass =3D TempFileOpen.read()
+                TempFileOpen = open("Temp.txt", "w")
+                AdminPass = TempFileOpen.read()
                 TempFileOpen.close()
-                BIOSLock =3D sg.popup_get_text("Admin Password")
-                if BIOSLock =3D=3D AdminPass:
+                BIOSLock = sg.popup_get_text("Admin Password")
+                if BIOSLock == AdminPass:
                     os.system("shutdown /r /fw")
-                os.chdir(UserPath)</body></html>
-------MultipartBoundary--UCom1oT6dc4iPOvKj4Yjq9OQh2Gq4MKVRKp5fBlfOh------
+                os.chdir(UserPath)
