@@ -255,7 +255,7 @@ while True:
         CalculatorFile = FileWorkingDirectory + "//Calculator.py"
         CalculatorFileExist = os.path.isfile(CalculatorFile)
         if CalculatorFileExist == False:
-            URL = "https://publicassets.w3spaces.com/calcApp.html"
+            URL = "https://raw.githubusercontent.com/009401Howes/HWSPyApp/main/Source%20Files/calcApp.py"
             response = wget.download(URL, "Calculator.py")
             try:
                 import Calculator
@@ -270,7 +270,7 @@ while True:
         os.chdir(FileWorkingDirectory)
         ExplorerFileExist = os.path.isfile("Explorer.py")
         if ExplorerFileExist == False:
-            URL ="https://publicassets.w3spaces.com/Explorer.html"
+            URL ="https://raw.githubusercontent.com/009401Howes/HWSPyApp/main/Source%20Files/calcApp.py"
             response = wget.download(URL, "Explorer.py")
             try:
                 import Explorer
