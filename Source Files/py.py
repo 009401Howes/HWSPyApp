@@ -187,7 +187,7 @@ def TextEditor():
                 StartWindow = False
                 Break = True
             elif TextEditor_Start_Window_event == "Create File":
-                FileName = sg.popup_get_text("Enter the file name") + ".txt"
+                FileName = sg.popup_get_text("Enter the file name")
                 CreateFileCheck = os.path.isfile(FileName)
                 if CreateFileCheck == True:
                     sg.popup_annoying("File already exists.")
@@ -196,7 +196,7 @@ def TextEditor():
                     fileName = FileName
                     break
             elif TextEditor_Start_Window_event == "Edit File":
-                FileName = sg.popup_get_text("Enter the file name") + ".txt"
+                FileName = sg.popup_get_text("Enter the file name")
                 input(os.getcwd())
                 EditFileCheck = os.path.isfile(FileName)
                 if EditFileCheck == True:
@@ -207,7 +207,7 @@ def TextEditor():
                 else:
                     sg.popup_annoying("File doesn't exist.")    
             elif TextEditor_Start_Window_event == "Delete File":
-                FileName = sg.popup_get_text("Enter the file name") + ".txt"
+                FileName = sg.popup_get_text("Enter the file name")
                 DeleteFileCheck = os.path.isfile(FileName)
                 if DeleteFileCheck == True:
                     os.remove(FileName)
