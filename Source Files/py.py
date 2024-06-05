@@ -42,7 +42,7 @@ def LoginSystem():
         LoginWindow.disappear()
         LoginWindow.disable()
         Admin_Window_Layout = [
-            [sg.Button("View Users"), sg.Button("Edit User's password"), sg.Button("Edit Admin Password"), sg.Button("Delete User"), sg.Button("Debug Mode"), sg.Button("Exit")]
+            [sg.Button("View Users"), sg.Button("Edit User's password"), sg.Button("Edit Admin Password")], [sg.Button("Delete User"), sg.Button("Debug Mode"), sg.Button("Exit")]
         ]
         Admin_Window = sg.Window("Administrator Mode", Admin_Window_Layout, size=(600,200))
         Admin_Window_Open = True
@@ -53,6 +53,7 @@ def LoginSystem():
                 LoginWindow.reappear()
                 Admin_Window.close()
                 Admin_Window_Open = False
+                
             elif Admin_events=="View Users":
                 os.chdir(UsersWorkingDirectory)
                 l=os.listdir()
@@ -89,6 +90,7 @@ def LoginSystem():
             elif Admin_events == "Debug Mode":
                 DebugFile = open("Debug.txt", "x")
                 DebugMode.close()
+        break
     global LoggedIn
     LoggedIn = False
     while LoggedIn == False:
@@ -125,6 +127,9 @@ def LoginSystem():
                     sg.popup_annoying("Incorrect.")
                 else:
                     AdminMode()
+                    LoginValues{"UsernameInput] = None
+                    LoginValues{"PasswordInput] = None
+                    
             else:
                 sg.popup_annoying("User doesn't exist.")
         elif event == "register":
